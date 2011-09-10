@@ -110,8 +110,11 @@ def contentrequest(environ, start_response, addr):
 	start = time.time()
 	
 	for i in xrange(off, num, 20):
+		s = time.time()
 		response = auther.signreq(ident, uri_form % str(i))
 		parsed = json.loads(str(response))
+		st = time.time()
+		print st - s
 		parsedrp = parsed['response']['posts']
 
 		if i == off:
@@ -119,6 +122,7 @@ def contentrequest(environ, start_response, addr):
 		elif parsedrp[0]['id'] == first:
 			break
 
+		s = time.time()
 		clist.extend(
 				[k 
 				for i in parsedrp
@@ -127,6 +131,8 @@ def contentrequest(environ, start_response, addr):
 				if k['width'] == 400
 				]
 				)
+		 st = time.time()
+		 print st - s
 	stop = time.time()
 	print stop-start
 	
