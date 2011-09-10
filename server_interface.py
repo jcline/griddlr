@@ -96,7 +96,7 @@ def contentrequest(environ, start_response, addr):
 		off = int(env['off'][0])
 	except Exception, e:
 		off=0
-	num = 20
+	num = 40
 	
 	num = num + off
 	mod = num % 20
