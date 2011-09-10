@@ -131,8 +131,8 @@ def contentrequest(environ, start_response, addr):
 				if k['width'] == 400
 				]
 				)
-		 st = time.time()
-		 print st - s
+		st = time.time()
+		print st - s
 	stop = time.time()
 	print stop-start
 	
