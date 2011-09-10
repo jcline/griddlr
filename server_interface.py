@@ -5,6 +5,10 @@ import time
 import json
 import norse
 import os.path
+import threading
+import Queue
+
+req_queue = Queue.Queue(10000)
 
 auther = None
 
@@ -145,9 +149,25 @@ def contentrequest(environ, start_response, addr):
 	start_response('200 OK', [('Content-Type', 'text/html')])
 	return str(content)
 
+class tumblrthread(threading.Thread):
+	TA = norse.TumblrAuth()
+
+	def run(self):
+		pass
+		#while True:
+			#	req_queue.get()
+
+	
+
 if __name__ == '__main__':
 	from flup.server.fcgi import WSGIServer
 	auther = norse.TumblrAuth()
+
+	for i in range(10):
+		t = tumblrthread()
+		t.setDaemon(True)
+		t.start()
+
 	if os.path.exists("index.html.beg") and	os.path.exists("index.html.end"):
 		beg = open("index.html.beg","r").read()
 		end = open("index.html.end","r").read()
