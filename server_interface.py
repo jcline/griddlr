@@ -107,6 +107,8 @@ def contentrequest(environ, start_response, addr):
 	clist = []
 	first = None
 
+	start = time.time()
+	
 	for i in xrange(off, num, 20):
 		response = auther.signreq(ident, uri_form % str(i))
 		parsed = json.loads(str(response))
@@ -125,6 +127,8 @@ def contentrequest(environ, start_response, addr):
 				if k['width'] == 400
 				]
 				)
+	stop = time.time()
+	print stop-start
 	
 	#stop = true
 	#clist = 
@@ -141,7 +145,7 @@ if __name__ == '__main__':
 	if os.path.exists("index.html.beg") and	os.path.exists("index.html.end"):
 		beg = open("index.html.beg","r").read()
 		end = open("index.html.end","r").read()
-		print beg, end
 	else:
 		print 'COULD NOT READ TEMPLATE'
+		return
 	WSGIServer(servcont, umask=0, bindAddress = '/tmp/fcgi.sock').run()
