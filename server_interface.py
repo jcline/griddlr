@@ -82,20 +82,21 @@ def endauthuser(environ, start_response, addr):
 	ident = [addr,response['oauth_verifier']]
 	auther.authconf(ident)
 	start_response(threezerothree, [('Content-Type', 'text/plain'),
-		            ('Location', 'dash.do?num=40')])
+		            ('Location', 'dash.do')])
 	return ['Success']
 	
 def contentrequest(environ, start_response, addr):
 	ident = [addr]
 	env = urlparse.parse_qs(environ['QUERY_STRING'])
-	try:
-		num = int(env['num'][0])
-	except Exception, e:
-		num=20
+	#try:
+	#	num = int(env['num'][0])
+	#except Exception, e:
+	#	num=20
 	try:
 		off = int(env['off'][0])
 	except Exception, e:
 		off=0
+	num = 20
 	
 	num = num + off
 	mod = num % 20
