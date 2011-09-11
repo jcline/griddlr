@@ -107,10 +107,10 @@ def contentrequest(environ, start_response, addr):
 	start = time.time()
 	
 	num = 40
-	for i in xrange(off, off+num, num/REQ_NUM_THREADS):
-		req_queue.put([ident, i, num/REQ_NUM_THREADS])
+	for i in xrange(off, off+num, num/NUM_REQ_THREADS):
+		req_queue.put([ident, i, num/NUM_REQ_THREADS])
 
-	for i in xrange(REQ_NUM_THREADS):
+	for i in xrange(NUM_REQ_THREADS):
 		resp.extend(res_queue.get())
 
 	first = 0
