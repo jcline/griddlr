@@ -9,6 +9,9 @@ import threading
 import Queue
 
 req_queue = Queue.Queue(10000)
+res_queue = Queue.Queue(10000)
+
+NUM_REQ_THREADS = 20
 
 auther = None
 
@@ -92,57 +95,50 @@ def endauthuser(environ, start_response, addr):
 def contentrequest(environ, start_response, addr):
 	ident = [addr]
 	env = urlparse.parse_qs(environ['QUERY_STRING'])
-	#try:
-	#	num = int(env['num'][0])
-	#except Exception, e:
-	#	num=20
+
 	try:
 		off = int(env['off'][0])
 	except Exception, e:
 		off=0
-	num = 40
-	
-	num = num + off
-	mod = num % 20
-	if mod:
-		num = num + mod
 
-	uri_form = 'http://api.tumblr.com/v2/user/dashboard?type=photo&offset=%s' 
 	clist = []
-	first = None
+	resp = []
 
 	start = time.time()
 	
-	for i in xrange(off, num, 20):
-		s = time.time()
-		response = auther.signreq(ident, uri_form % str(i))
-		parsed = json.loads(str(response))
-		st = time.time()
-		print st - s
-		parsedrp = parsed['response']['posts']
+	num = 40
+	for i in xrange(offset, offset+num, num/REQ_NUM_THREADS):
+		req_queue.put([ident, i, num/REQ_NUM_THREADS])
 
-		if i == off:
-			first = parsedrp[0]['id']
-		elif parsedrp[0]['id'] == first:
-			break
+	for i in xrange(REQ_NUM_THREADS):
+		resp.extend(res_queue.get())
 
-		s = time.time()
-		clist.extend(
-				[k 
-				for i in parsedrp
-				for j in i['photos'] 
-				for k in j['alt_sizes']
-				if k['width'] == 400
-				]
-				)
-		st = time.time()
-		print st - s
+	first = 0
+	for i in resp:
+		idv = i['id']
+		if idv > first:
+			first = idv
+	
+	first_count = False
+	for i in resp:
+		if i['id'] == first:
+			if first_count:
+				break
+			first_count = True
+
+		for j in i['photos']:
+			for k in j['alt_sizes']:
+				if k['width'] == 400:
+					clist.extend(k['url'])
+			else:
+				clist.extend(j['alt_sizes'][0])
+		
 	stop = time.time()
 	print stop-start
 	
 	#stop = true
 	#clist = 
-	posts = "".join(['<div class=\"post\"><div class=\"meta\"><img src=\"%s\" alt="" /></div></div>' % (i['url']) for i in clist])
+	posts = "".join(['<div class=\"post\"><div class=\"meta\"><img src=\"%s\" alt="" /></div></div>' % (i) for i in clist])
 
 	content = '%s%s%s' % (beg,posts,end)
 
@@ -151,19 +147,26 @@ def contentrequest(environ, start_response, addr):
 
 class tumblrthread(threading.Thread):
 	TA = norse.TumblrAuth()
+	uri = 'http://api.tumblr.com/v2/user/dashboard?type=photo&offset=%s&limit=%s' 
 
 	def run(self):
 		pass
-		#while True:
-			#	req_queue.get()
+		while True:
+				req = req_queue.get(True)
+				response = self.TA.signreq(req[0], self.uri % (str(req[1],str(req[2]))))
+				parsed = json.loads(str(response))
+				parsedrp = parsed['response']['posts']
 
+
+				res_queue.put(parsedrp)
+				req_queue.task_done()
 	
 
 if __name__ == '__main__':
 	from flup.server.fcgi import WSGIServer
 	auther = norse.TumblrAuth()
 
-	for i in range(10):
+	for i in range(20):
 		t = tumblrthread()
 		t.setDaemon(True)
 		t.start()
