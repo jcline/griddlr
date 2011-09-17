@@ -132,8 +132,9 @@ def contentrequest(environ, start_response, addr):
 				if k['width'] == 400:
 					clist.append(k['url'])
 					print k['url']
+					break
 			else:
-				clist.append(j['alt_sizes'][0])
+				clist.append(j['alt_sizes'][0]['url'])
 	
 	stop = time.time()
 	print stop-start
