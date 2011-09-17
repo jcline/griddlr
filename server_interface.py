@@ -59,7 +59,7 @@ def distribute(environ, start_response, addr, path):
 		return [fourzerofour]
 	elif path == '/dash.do':
 		try:
-			TumblrAuth.identities[addr]
+			norse.TumblrAuth.identities[addr]
 		except KeyError, e:
 			start_response(threezerothree, [('Content-Type', 'text/plain'),
 								('Location', 'login.do'),
