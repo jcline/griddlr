@@ -163,7 +163,7 @@ def contentrequest(environ, start_response, addr):
 
 	start_response('200 OK', [('Content-Type', 'text/html')])
 	#return str(content)
-	return str(clist[0])
+	return json.dumps(clist)
 
 class tumblrthread(threading.Thread):
 	TA = norse.TumblrAuth()
