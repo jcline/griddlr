@@ -9,7 +9,7 @@ getmore = function(){
 			current = current + 40;
 
 			jQuery.each(data, function(i){
-				jQuery("<img/>").attr("src", i).appendTo("#content");
+				jQuery("<img/>").attr("src", data[i]).appendTo("#content");
 		});
 	});
 };
