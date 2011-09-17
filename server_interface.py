@@ -162,7 +162,8 @@ def contentrequest(environ, start_response, addr):
 	content = '%s%s%s' % (beg,posts,end)
 
 	start_response('200 OK', [('Content-Type', 'text/html')])
-	return str(content)
+	#return str(content)
+	return str(clist[0])
 
 class tumblrthread(threading.Thread):
 	TA = norse.TumblrAuth()
