@@ -11,6 +11,7 @@ getmore = function(){
 			jQuery.each(data, function(i){
 				jQuery("<img/>").attr("src", i).appendTo("#content");
 		});
+	});
 });
 
 jQuery(document).ready(function() {
