@@ -62,9 +62,7 @@ def distribute(environ, start_response, addr, path):
 			norse.TumblrAuth.identities[addr]
 		except KeyError, e:
 			start_response(threezerothree, [('Content-Type', 'text/plain'),
-								('Location', 'login.do'),
-								('Authorization', ret[2])
-								])
+								('Location', 'login.do')])
 			return ["You have to login first. Please go to http://griddlr.com/login.do"]
 
 		return contentrequest(environ, start_response, addr)
