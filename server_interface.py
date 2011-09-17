@@ -124,6 +124,10 @@ def contentrequest(environ, start_response, addr):
 		resp.extend(res_queue.get())
 		res_queue.task_done()
 
+	stop = time.time()
+	print stop-start
+	start = time.time()
+
 	first = 0
 	for i in resp:
 		idv = i['id']
