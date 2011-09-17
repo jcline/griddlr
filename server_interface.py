@@ -111,7 +111,7 @@ def contentrequest(environ, start_response, addr):
 		req_queue.put([ident, i, num/NUM_REQ_THREADS])
 
 	for i in xrange(NUM_REQ_THREADS):
-		resp.extend(res_queue.get())
+		resp.append(res_queue.get())
 		res_queue.task_done()
 
 	first = 0
@@ -130,10 +130,10 @@ def contentrequest(environ, start_response, addr):
 		for j in i['photos']:
 			for k in j['alt_sizes']:
 				if k['width'] == 400:
-					clist.extend(k['url'])
+					clist.append(k['url'])
 					print k['url']
 			else:
-				clist.extend(j['alt_sizes'][0])
+				clist.append(j['alt_sizes'][0])
 	
 	stop = time.time()
 	print stop-start
