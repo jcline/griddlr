@@ -146,24 +146,16 @@ def contentrequest(environ, start_response, addr):
 			for k in j['alt_sizes']:
 				if k['width'] == 400:
 					clist.append(k['url'])
-					print k['url']
 					break
 			else:
 				clist.append(j['alt_sizes'][0]['url'])
-				print j['alt_sizes'][0]
 	
 	stop = time.time()
+	content = [json.dumps(clist)]
 	print stop-start
 	
-	#stop = true
-	#clist = 
-	posts = "\n".join(['<div class=\"post\"><div class=\"meta\"><img src=\"%s\" alt="" /></div></div>' % (i) for i in clist])
-
-	content = '%s%s%s' % (beg,posts,end)
-
 	start_response('200 OK', [('Content-Type', 'text/html')])
-	#return str(content)
-	return json.dumps(clist)
+	return content
 
 class tumblrthread(threading.Thread):
 	TA = norse.TumblrAuth()
