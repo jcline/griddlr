@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
 });
 
 jQuery(window).scroll(function() {
-	if(jQuery(window).scrollTop() + jQuery(window).height() ==
+	if(jQuery(window).scrollTop() + jQuery(window).height() >=
 		jQuery(document).height() * .8) {
 			getmore();
 	}
