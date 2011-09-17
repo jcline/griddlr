@@ -150,7 +150,6 @@ class tumblrthread(threading.Thread):
 	uri = 'http://api.tumblr.com/v2/user/dashboard?type=photo&offset=%s&limit=%s' 
 
 	def run(self):
-		pass
 		while True:
 				req = req_queue.get(True)
 				response = self.TA.signreq(req[0], self.uri % (str(req[1]),str(req[2])))
