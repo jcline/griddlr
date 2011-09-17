@@ -1,106 +1,95 @@
 <!DOCTYPE html>
 <html>
 	<head>
-        <title></title>
+        <title>Griddlr.com - A grid-based tumblr dashboard viewer.</title>
 
-            <meta name="description" content="" />
-
+        <meta name="description" content="Griddlr is a service and a theme developed by Norse By Norsewest. It uses CSS3 for everything you see. Keep scrolling to load more posts." />
+        
+		<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 		
-<style type="text/css">
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	font-size: 100%;
-	vertical-align: baseline;
-	background: transparent;
-}
-#content {
-/* Prevent vertical gaps */
-	line-height: 0;
-	
-	-webkit-column-count: 5;
-	-webkit-column-gap:   0px;
-	-moz-column-count:    5;
-	-moz-column-gap:      0px;
-	column-count:         5;
-	column-gap:           0px;
+		<link href='style.css' rel='stylesheet' type='text/css'>
 
-}
+		<script src="jquery-1.6.4.min.js"> </script>
+		<script src="loadimages.js"></script>
 
-#content img, .post {
-	/* Just in case there are inline attributes */
-	width: 100% !important;
-	height: auto !important;
-	/*box-shadow: 0px 3px 5px #444;*/
-}
-
-@media (max-width: 1200px) {
-	#content {
-	-moz-column-count:    4;
-	-webkit-column-count: 4;
-	column-count:         4;
-	}
-}
-@media (max-width: 1000px) {
-	#content {
-	-moz-column-count:    3;
-	-webkit-column-count: 3;
-	column-count:         3;
-	}
-}
-@media (max-width: 800px) {
-	#content {
-	-moz-column-count:    2;
-	-webkit-column-count: 2;
-	column-count:         2;
-	}
-}
-@media (max-width: 400px) {
-	#content {
-	-moz-column-count:    1;
-	-webkit-column-count: 1;
-	column-count:         1;
-	}
-}
-
-
-</style>
-
-
-<script src="jquery-1.6.4.min.js" > </script>
-<script type="text/javascript" src="loadimages.js" > </script>
-
-	
-</head>
-
+	</head>
 	<body>
+	
+	<header>
+	
+		<h1><a href="/">Griddlr.com</a></h1>
 		
-		<section id="content">
-		
-			<div class="post">
+		<nav>
+			<ul>
+
+				<li><a href="http://norsebynorsewest.com/">Norse by Norsewest</a></li>
+				<li><a href="http://norsebynorsewest.com/">Theme</a></li>
 			
-				<div class="meta">
+			</ul>
+		</nav>
+		
+	</header>
+	
+	
+	<aside>
+	
+	<div class="pullout"></div>
+	<p class="information">i</p>
+	
+		<div class="about">
+		
+			<img src="avatar.png" alt="Griddlr.com Developed by Norse By Norsewest"/>
+
+			
+				<p>Griddlr is a service and a theme for tumblr that displays your posts or dashboard in a clean fluid grid. Developed by <a href="http://norsebynorsewest.com/">Norse By Norsewest</a>, it uses CSS3 for everything you see. Keep scrolling to load more posts.</p>
 				
-					<!--Meta info goes here. Info to come.-->
-					
+				<p>Developed in <a href="http://macrabbit.com/espresso/">Espresso</a> on OS X. <a href="http://www.google.com/webfonts/specimen/Oswald">Oswald</a> and <a href="http://www.google.com/webfonts/specimen/Questrial">Questrial</a> sourced from <a href="http://www.google.com/webfonts#HomePlace:home">Google Web Fonts</a>.<p>
+				
+		</div>
+		
+		<form action="/search" method="get">
+		    <input type="text" name="q" value="{SearchQuery}" placeholder="Search..."/>
+		</form>
+		
+	</aside>
+		
+	<section id="content">
+
+		<div class="singlePost">
+				
+				<div class="summary">
+					<p><!-- Caption of the post --></p>
 				</div>
 				
-				<img src="" alt=""/>
+				<div class="permalinkLinks">
+					<a href="{PhotoURL-HighRes}" class="highresMeta">Hi-res</a> <!-- link to high res source if available -->
+					<a href="{Permalink}" class="notesMeta">{Number of notes}</a> <!-- display notes if available. link to permalink -->
+				</div>
 				
-			</div>
+			<a href="{Permalink}" class="hoverMeta" tabindex="1"> <!-- Link to permalink of post -->
+				
+				<article class="post">
 		
-		</section>
-	
+					<div class="meta">
+						
+						<div class="details">
+							
+							<div class="time"><!--Display the post date in Month ## --></div>
+					
+						</div>
+
+					</div>
+					
+						<img src="" alt=""/>
+					
+				</article>
+			</a>
+			
+		</div>
+
+	</section>
+
+
 	</body>
-	
 </html>
