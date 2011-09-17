@@ -4,7 +4,7 @@ $(document).ready(function() {
 	getmore();
 }
 
-getmore = function()({
+getmore = function(){
 	$.getJSON( '/dash.do', 
 		{
 			off: current
