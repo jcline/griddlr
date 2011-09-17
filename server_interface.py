@@ -112,6 +112,10 @@ def contentrequest(environ, start_response, addr):
 
 	for i in xrange(NUM_REQ_THREADS):
 		resp.extend(res_queue.get())
+		res_queue.task_done()
+
+	for i in resp:
+		print i
 
 	first = 0
 	for i in resp:
@@ -138,7 +142,7 @@ def contentrequest(environ, start_response, addr):
 	
 	#stop = true
 	#clist = 
-	posts = "".join(['<div class=\"post\"><div class=\"meta\"><img src=\"%s\" alt="" /></div></div>' % (i) for i in clist])
+	posts = "\n".join(['<div class=\"post\"><div class=\"meta\"><img src=\"%s\" alt="" /></div></div>' % (i) for i in clist])
 
 	content = '%s%s%s' % (beg,posts,end)
 
