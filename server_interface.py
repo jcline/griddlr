@@ -62,7 +62,7 @@ def distribute(environ, start_response, addr, path):
 			identities[addr]
 		except KeyError, e:
 			start_response(threezerothree, [('Content-Type', 'text/plain'),
-								('Location', '%s?oauth_token=%s' % (ret[1], ret[2])),
+								('Location', 'login.do'),
 								('Authorization', ret[2])
 								])
 			return ["You have to login first. Please go to http://griddlr.com/login.do"]
