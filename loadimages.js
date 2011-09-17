@@ -15,5 +15,5 @@ getmore = function(){
 
 jQuery(document).ready(function() {
 	getmore();
-}
+});
 
