@@ -98,7 +98,7 @@ def endauthuser(environ, start_response, addr):
 	ident = [addr,response['oauth_verifier']]
 	auther.authconf(ident)
 	start_response(threezerothree, [('Content-Type', 'text/plain'),
-		            ('Location', 'dash.do')])
+		            ('Location', '/')])
 	return ['Success']
 	
 def contentrequest(environ, start_response, addr):
