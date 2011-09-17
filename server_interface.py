@@ -150,8 +150,8 @@ def contentrequest(environ, start_response, addr):
 			else:
 				clist.append(j['alt_sizes'][0]['url'])
 	
-	stop = time.time()
 	content = [json.dumps(clist)]
+	stop = time.time()
 	print stop-start
 	
 	start_response('200 OK', [('Content-Type', 'text/html')])
