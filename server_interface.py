@@ -111,7 +111,7 @@ def contentrequest(environ, start_response, addr):
 		req_queue.put([ident, i, num/NUM_REQ_THREADS])
 
 	for i in xrange(NUM_REQ_THREADS):
-		resp.append(res_queue.get())
+		resp.extend(res_queue.get())
 		res_queue.task_done()
 
 	first = 0
