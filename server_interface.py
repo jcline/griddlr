@@ -117,10 +117,10 @@ def contentrequest(environ, start_response, addr):
 	start = time.time()
 	
 	num = 40
-	for i in xrange(off, off+num, 20):
-		req_queue.put([ident, i, 20])
+	for i in xrange(off, off+num, 10):
+		req_queue.put([ident, i, 10])
 
-	for i in xrange(num/20):
+	for i in xrange(num/10):
 		resp.extend(res_queue.get())
 		res_queue.task_done()
 
