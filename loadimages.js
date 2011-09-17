@@ -1,18 +1,19 @@
 var current = 0
 
-$(document).ready(function() {
-	getmore();
-}
-
 getmore = function(){
-	$.getJSON( '/dash.do', 
+	jQuery.getJSON( '/dash.do', 
 		{
 			off: current
 		},
 		function(data) {
 			current = current + 40;
 
-			$.each(data, function(i){
-				$("<img/>").attr("src", i).appendTo("#content");
+			jQuery.each(data, function(i){
+				jQuery("<img/>").attr("src", i).appendTo("#content");
 		});
 });
+
+jQuery(document).ready(function() {
+	getmore();
+}
+
