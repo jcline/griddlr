@@ -21,12 +21,14 @@ end = ""
 http_codes = {
 			'404': '404 Not Found',
 			'303': '303 See Other',
+			'500': '500 Internal Server Error',
 			'503': '503 Service Unavailable'
 	}
 
 threezerothree = http_codes['303']
 fourzerofour = http_codes['404']
 fivezerothree = http_codes['503']
+fivehundred = http_codes['500']
 
 text_plain = [('Content-Type', 'text/plain')]
 
@@ -41,7 +43,7 @@ def servcont(environ, start_response):
 		end = time.time()
 		print time.time(), "\t", addr, "\t", path, "\t", end-start
 		start_response(fivezerothree, text_plain)
-		return [fivezerothree]
+		return [fivehundred]
 
 	end = time.time()
 	print time.time(), "\t", addr, "\t", path, "\t", end-start
@@ -103,6 +105,7 @@ def contentrequest(environ, start_response, addr):
 
 	clist = []
 	resp = []
+	rlist = []
 
 	start = time.time()
 	
@@ -120,13 +123,18 @@ def contentrequest(environ, start_response, addr):
 		if idv > first:
 			first = idv
 	
+	
 	first_count = False
 	for i in resp:
 		if i['id'] == first:
 			if first_count:
 				break
 			first_count = True
+		rlist.append(i)
 
+	sorted(rlist, key=lambda x: x['id'])
+
+	for i in rlist:
 		for j in i['photos']:
 			for k in j['alt_sizes']:
 				if k['width'] == 400:
@@ -134,7 +142,8 @@ def contentrequest(environ, start_response, addr):
 					print k['url']
 					break
 			else:
-				clist.append(j['alt_sizes'][0]['url'])
+				#clist.append(j['alt_sizes'][0]['url'])
+				print j['alt_sizes'][0]
 	
 	stop = time.time()
 	print stop-start
