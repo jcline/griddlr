@@ -149,7 +149,7 @@ def contentrequest(environ, start_response, addr):
 					print k['url']
 					break
 			else:
-				#clist.append(j['alt_sizes'][0]['url'])
+				clist.append(j['alt_sizes'][0]['url'])
 				print j['alt_sizes'][0]
 	
 	stop = time.time()
