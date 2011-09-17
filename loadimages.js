@@ -1,4 +1,4 @@
-current = 40
+var current = 0
 
 $(document).ready(function() {
 	getmore();
@@ -7,7 +7,7 @@ $(document).ready(function() {
 getmore = function()({
 	jQuery.getJSON( '/dash.do', 
 		{
-			offset: current
+			off: current
 		},
 		function(data) {
 			current = current + 40;
