@@ -58,6 +58,15 @@ def distribute(environ, start_response, addr, path):
 		start_response(fourzerofour, text_plain)
 		return [fourzerofour]
 	elif path == '/dash.do':
+		try:
+			identities[addr]
+		except KeyError, e:
+			start_response(threezerothree, [('Content-Type', 'text/plain'),
+								('Location', '%s?oauth_token=%s' % (ret[1], ret[2])),
+								('Authorization', ret[2])
+								])
+			return ["You have to login first. Please go to http://griddlr.com/login.do"]
+
 		return contentrequest(environ, start_response, addr)
 	elif path == '/login.do':
 		return beginauthuser(environ, start_response, addr)
