@@ -119,7 +119,6 @@ def contentrequest(environ, start_response, addr):
 	resp = []
 	rlist = []
 
-	start = time.time()
 	
 	num = 40
 	for i in xrange(off, off+num, 10):
@@ -129,9 +128,6 @@ def contentrequest(environ, start_response, addr):
 		resp.extend(res_queue.get())
 		res_queue.task_done()
 
-	stop = time.time()
-	print stop-start
-	start = time.time()
 
 	for i in resp:
 		idv = i['id']
@@ -170,8 +166,6 @@ def contentrequest(environ, start_response, addr):
 			clist.append(post)
 	
 	content = [json.dumps(clist)]
-	stop = time.time()
-	print stop-start
 	
 	start_response('200 OK', [('Content-Type', 'text/html')])
 	return content
