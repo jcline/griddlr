@@ -157,10 +157,8 @@ def contentrequest(environ, start_response, addr):
 			('caption', i['photos']['caption']),
 			('numnotes', i['note_count']),
 			('date', time.gmtime(i['timestamp'])['tm_mon']),
-			('hires', i['photos']['alt_sizes'][0]['url']),
-			('notes', '')
+			('hires', i['photos']['alt_sizes'][0]['url'])
 			])
-		print i
 		for j in i['photos']:
 			for k in j['alt_sizes']:
 				if k['width'] == 400:
