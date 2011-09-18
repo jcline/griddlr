@@ -106,6 +106,11 @@ def contentrequest(environ, start_response, addr):
 	env = urlparse.parse_qs(environ['QUERY_STRING'])
 
 	try:
+		first = int(env['first'][0])
+	except Exception, e:
+		first = 0
+
+	try:
 		off = int(env['off'][0])
 	except Exception, e:
 		off=0
@@ -128,7 +133,6 @@ def contentrequest(environ, start_response, addr):
 	print stop-start
 	start = time.time()
 
-	first = 0
 	for i in resp:
 		idv = i['id']
 		if idv > first:
@@ -145,14 +149,26 @@ def contentrequest(environ, start_response, addr):
 
 	sorted(rlist, key=lambda x: x['id'])
 
+				#var content = first + data[i].caption + second + data[i].hires + third + data[i].notes + fourth + data[i].numnotes + fifth + data[i].perma + sixth + data[i].date + seventh + data[i].img + eigth + data[i].caption + ninth
+
 	for i in rlist:
+		post = dict([('id': i['id']),
+			('perma': i['post_url']),
+			('caption': i['photos']['caption']),
+			('numnotes': i['note_count']),
+			('date': time.gmtime(i['timestamp'])['tm_mon']),
+			('hires': i['photos']['alt_sizes'][0]['url']),
+			('notes': '')
+			])
+		print i
 		for j in i['photos']:
 			for k in j['alt_sizes']:
 				if k['width'] == 400:
-					clist.append(k['url'])
+					post['img'] = k['url']
+					#clist.append(k['url'])
 					break
 			else:
-				clist.append(j['alt_sizes'][0]['url'])
+				post['img'] = post['hires']
 	
 	content = [json.dumps(clist)]
 	stop = time.time()
@@ -163,7 +179,7 @@ def contentrequest(environ, start_response, addr):
 
 class tumblrthread(threading.Thread):
 	TA = norse.TumblrAuth()
-	uri = 'http://api.tumblr.com/v2/user/dashboard?type=photo&offset=%s&limit=%s' 
+	uri = 'http://api.tumblr.com/v2/user/dashboard?type=photo&offset=%s&limit=%s&notes_info' 
 
 	def run(self):
 		while True:
