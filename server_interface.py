@@ -185,6 +185,7 @@ class tumblrthread(threading.Thread):
 		while True:
 				req = req_queue.get(True)
 				response = self.TA.signreq(req[0], self.uri % (str(req[1]),str(req[2])))
+				print response
 				parsed = json.loads(str(response))
 				parsedrp = parsed['response']['posts']
 
