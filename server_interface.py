@@ -167,7 +167,7 @@ def contentrequest(environ, start_response, addr):
 	
 	content = [json.dumps(clist)]
 	
-	start_response('200 OK', [('Content-Type', 'text/html')])
+	start_response('200 OK', [('Content-Type', 'application/json')])
 	return content
 
 class tumblrthread(threading.Thread):

@@ -19,13 +19,11 @@ getmore = function(){
 	if (stop) {
 		return;
 	}
-	jQuery.getJSON( '/dash.do', 
+	jqxhrval = jQuery.getJSON( '/dash.do', 
 		{
 			off: current
 		},
-		function(data, stat, jqxhr) {
-			statval = stat;
-			jqxhrval = jqxhr;
+		function(data) {
 			current = current + 40;
 
 			var done = true;
