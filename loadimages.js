@@ -22,7 +22,7 @@ getmore = function(){
 			jQuery.each(data, function(i){
 
 				if(( ids[data[i].id] == true) == false ) {
-					id[data[i].id] = true;
+					ids[data[i].id] = true;
 
 					jQuery(first.concat(data[i].caption, second, data[i].hires, third, data[i].perma, '#notes', fourth, data[i].numnotes, fifth, data[i].perma, sixth, data[i].date, seventh, data[i].img, eigth, data[i].caption, ninth)).appendTo("#content");
 				}
