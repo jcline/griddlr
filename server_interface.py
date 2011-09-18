@@ -152,13 +152,13 @@ def contentrequest(environ, start_response, addr):
 				#var content = first + data[i].caption + second + data[i].hires + third + data[i].notes + fourth + data[i].numnotes + fifth + data[i].perma + sixth + data[i].date + seventh + data[i].img + eigth + data[i].caption + ninth
 
 	for i in rlist:
-		post = dict([('id': i['id']),
-			('perma': i['post_url']),
-			('caption': i['photos']['caption']),
-			('numnotes': i['note_count']),
-			('date': time.gmtime(i['timestamp'])['tm_mon']),
-			('hires': i['photos']['alt_sizes'][0]['url']),
-			('notes': '')
+		post = dict([('id', i['id']),
+			('perma', i['post_url']),
+			('caption', i['photos']['caption']),
+			('numnotes', i['note_count']),
+			('date', time.gmtime(i['timestamp'])['tm_mon']),
+			('hires', i['photos']['alt_sizes'][0]['url']),
+			('notes', '')
 			])
 		print i
 		for j in i['photos']:
