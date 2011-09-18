@@ -20,8 +20,8 @@ getmore = function(){
 		function(data) {
 			current = current + 40;
 			maybefirst = data[0].id;
-			if (maybefirst > first) {
-				first = maybefirst;
+			if (maybefirst > first_post) {
+				first_post = maybefirst;
 			}
 
 			var stop = false;
@@ -29,7 +29,7 @@ getmore = function(){
 				if(stop==true) {
 					return false;
 				}
-				if(data[i].id == first) {
+				if(data[i].id == first_post) {
 					stop = true;
 				}
 
