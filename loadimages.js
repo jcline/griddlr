@@ -20,7 +20,7 @@ getmore = function(){
 		function(data) {
 			current = current + 40;
 			maybefirst = data[0].id;
-			if (maybefirst < first) {
+			if (maybefirst > first) {
 				first = maybefirst;
 			}
 
