@@ -125,7 +125,9 @@ def contentrequest(environ, start_response, addr):
 		req_queue.put([ident, i, 10])
 
 	for i in xrange(num/10):
-		resp.extend(res_queue.get())
+		res = res_queue.get()
+		if res != 'fail':
+			resp.extend(res)
 		res_queue.task_done()
 
 
@@ -149,11 +151,13 @@ def contentrequest(environ, start_response, addr):
 
 	for i in rlist:
 		for j in i['photos']:
+			month = time.gmtime(i['timestamp']).tm_mon
+			month = calendar.month_name[month] + month
 			post = dict([('id', i['id']),
 				('perma', i['post_url']),
 				('caption', j['caption']),
 				('numnotes', i['note_count']),
-				('date', time.gmtime(i['timestamp']).tm_mon),
+				('date', month)
 				('hires', j['alt_sizes'][0]['url'])
 				])
 			for k in j['alt_sizes']:
@@ -178,11 +182,14 @@ class tumblrthread(threading.Thread):
 		while True:
 				req = req_queue.get(True)
 				response = self.TA.signreq(req[0], self.uri % (str(req[1]),str(req[2])))
-				parsed = json.loads(str(response))
-				parsedrp = parsed['response']['posts']
+				try:
+					parsed = json.loads(str(response))
+					parsedrp = parsed['response']['posts']
 
+					res_queue.put(parsedrp)
+				except Exception, e:
+					res_queu.put('fail')
 
-				res_queue.put(parsedrp)
 				req_queue.task_done()
 	
 
