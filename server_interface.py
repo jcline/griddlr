@@ -153,7 +153,7 @@ def contentrequest(environ, start_response, addr):
 	for i in rlist:
 		for j in i['photos']:
 			month = time.gmtime(i['timestamp']).tm_mon
-			month = calendar.month_name[month] + month
+			month = calendar.month_name[month] + ' ' + str(month)
 			post = dict([('id', i['id']),
 				('perma', i['post_url']),
 				('caption', j['caption']),
