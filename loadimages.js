@@ -14,8 +14,7 @@ var ninth = '"/> </article> </a> </div>'
 getmore = function(){
 	jQuery.getJSON( '/dash.do', 
 		{
-			off: current,
-			first: first_post
+			off: current
 		},
 		function(data) {
 			current = current + 40;
