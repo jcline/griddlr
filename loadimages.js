@@ -1,5 +1,5 @@
 var current = 0
-var first_post = 0
+var ids = new Object()
 
 var first = '<div class="singlePost"><div class="summary">'
 var second = '</div> <div class="permalinkLinks"><a href="'
@@ -19,21 +19,14 @@ getmore = function(){
 		},
 		function(data) {
 			current = current + 40;
-			maybefirst = data[0].id;
-			if (maybefirst > first_post) {
-				first_post = maybefirst;
-			}
 
-			var stop = false;
 			jQuery.each(data, function(i){
-				if(stop==true) {
-					return false;
-				}
-				if(data[i].id == first_post) {
-					stop = true;
-				}
 
-				jQuery(first.concat(data[i].caption, second, data[i].hires, third, data[i].perma, '#notes', fourth, data[i].numnotes, fifth, data[i].perma, sixth, data[i].date, seventh, data[i].img, eigth, data[i].caption, ninth)).appendTo("#content");
+				if(( ids[data[i].id] == true) == false ) {
+					id[data[i].id] = true;
+
+					jQuery(first.concat(data[i].caption, second, data[i].hires, third, data[i].perma, '#notes', fourth, data[i].numnotes, fifth, data[i].perma, sixth, data[i].date, seventh, data[i].img, eigth, data[i].caption, ninth)).appendTo("#content");
+				}
 
 		});
 	});
