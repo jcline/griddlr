@@ -24,7 +24,7 @@ getmore = function(){
 
 				var content = first + data[i].caption + second + data[i].hires + third + data[i].perma + '#notes' + fourth + data[i].numnotes + fifth + data[i].perma + sixth + data[i].date + seventh + data[i].img + eigth + data[i].caption + ninth;
 
-				append("#content", content);
+				jQuery.append("#content", content);
 		});
 	});
 };
