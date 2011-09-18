@@ -179,7 +179,7 @@ def contentrequest(environ, start_response, addr):
 
 class tumblrthread(threading.Thread):
 	TA = norse.TumblrAuth()
-	uri = 'http://api.tumblr.com/v2/user/dashboard?type=photo&offset=%s&limit=%s&notes_info' 
+	uri = 'http://api.tumblr.com/v2/user/dashboard?type=photo&offset=%s&limit=%s&notes_info=True' 
 
 	def run(self):
 		while True:
