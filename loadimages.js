@@ -2,6 +2,9 @@ var current = 0;
 var ids = new Object();
 var stop = false;
 
+var statval = 0;
+var jqxhrval = 0;
+
 var first = '<div class="singlePost"><div class="summary">';
 var second = '</div> <div class="permalinkLinks"><a href="';
 var third = '" class="highresMeta">Hi-res</a> <a href="';
@@ -24,7 +27,10 @@ getmore = function(){
 			current = current + 40;
 
 			var done = true;
-			jQuery.each(data, function(i){
+			jQuery.each(data, function(i, stat, jqxhr){
+
+				statval = stat;
+				jqxhrval = jqxhr;
 
 				if(( ids[data[i].id] == true) == false ) {
 					ids[data[i].id] = true;
