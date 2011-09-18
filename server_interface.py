@@ -157,7 +157,7 @@ def contentrequest(environ, start_response, addr):
 				('perma', i['post_url']),
 				('caption', j['caption']),
 				('numnotes', i['note_count']),
-				('date', time.gmtime(i['timestamp'])['tm_mon']),
+				('date', time.gmtime(i['timestamp']).tm_mon),
 				('hires', j['alt_sizes'][0]['url'])
 				])
 			for k in j['alt_sizes']:
