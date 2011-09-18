@@ -23,14 +23,14 @@ getmore = function(){
 		{
 			off: current
 		},
-		function(data) {
+		function(data, stat, jqxhr) {
+			statval = stat;
+			jqxhrval = jqxhr;
 			current = current + 40;
 
 			var done = true;
-			jQuery.each(data, function(i, stat, jqxhr){
+			jQuery.each(data, function(i){
 
-				statval = stat;
-				jqxhrval = jqxhr;
 
 				if(( ids[data[i].id] == true) == false ) {
 					ids[data[i].id] = true;
