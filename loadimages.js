@@ -22,7 +22,7 @@ getmore = function(){
 
 			jQuery.each(data, function(i){
 
-				var content = first + data[i].caption + second + data[i].hires + third + data[i].parma + '#notes' + fourth + data[i].numnotes + fifth + data[i].perma + sixth + data[i].date + seventh + data[i].img + eigth + data[i].caption + ninth;
+				var content = first + data[i].caption + second + data[i].hires + third + data[i].perma + '#notes' + fourth + data[i].numnotes + fifth + data[i].perma + sixth + data[i].date + seventh + data[i].img + eigth + data[i].caption + ninth;
 
 				content.appendTo("#content");
 		});
