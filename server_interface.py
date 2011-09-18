@@ -155,7 +155,7 @@ def contentrequest(environ, start_response, addr):
 		for j in i['photos']:
 			post = dict([('id', i['id']),
 				('perma', i['post_url']),
-				('caption', i['photos']['caption']),
+				('caption', j['caption']),
 				('numnotes', i['note_count']),
 				('date', time.gmtime(i['timestamp'])['tm_mon']),
 				('hires', j['alt_sizes'][0]['url'])
