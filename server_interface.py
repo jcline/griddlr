@@ -189,7 +189,7 @@ class tumblrthread(threading.Thread):
 
 					res_queue.put(parsedrp)
 				except Exception, e:
-					res_queu.put('fail')
+					res_queue.put('fail')
 
 				req_queue.task_done()
 	
@@ -203,9 +203,4 @@ if __name__ == '__main__':
 		t.setDaemon(True)
 		t.start()
 
-	if os.path.exists("index.html.beg") and	os.path.exists("index.html.end"):
-		beg = open("index.html.beg","r").read()
-		end = open("index.html.end","r").read()
-		WSGIServer(servcont, umask=0, bindAddress = '/tmp/fcgi.sock').run()
-	else:
-		print 'COULD NOT READ TEMPLATE'
+	WSGIServer(servcont, umask=0, bindAddress = '/tmp/fcgi.sock').run()
