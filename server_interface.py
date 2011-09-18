@@ -152,14 +152,14 @@ def contentrequest(environ, start_response, addr):
 				#var content = first + data[i].caption + second + data[i].hires + third + data[i].notes + fourth + data[i].numnotes + fifth + data[i].perma + sixth + data[i].date + seventh + data[i].img + eigth + data[i].caption + ninth
 
 	for i in rlist:
-		post = dict([('id', i['id']),
-			('perma', i['post_url']),
-			('caption', i['photos']['caption']),
-			('numnotes', i['note_count']),
-			('date', time.gmtime(i['timestamp'])['tm_mon']),
-			('hires', i['photos']['alt_sizes'][0]['url'])
-			])
 		for j in i['photos']:
+			post = dict([('id', i['id']),
+				('perma', i['post_url']),
+				('caption', i['photos']['caption']),
+				('numnotes', i['note_count']),
+				('date', time.gmtime(i['timestamp'])['tm_mon']),
+				('hires', j['alt_sizes'][0]['url'])
+				])
 			for k in j['alt_sizes']:
 				if k['width'] == 400:
 					post['img'] = k['url']
@@ -167,6 +167,7 @@ def contentrequest(environ, start_response, addr):
 					break
 			else:
 				post['img'] = post['hires']
+			clist.append(post)
 	
 	content = [json.dumps(clist)]
 	stop = time.time()
@@ -183,7 +184,6 @@ class tumblrthread(threading.Thread):
 		while True:
 				req = req_queue.get(True)
 				response = self.TA.signreq(req[0], self.uri % (str(req[1]),str(req[2])))
-				print response
 				parsed = json.loads(str(response))
 				parsedrp = parsed['response']['posts']
 
