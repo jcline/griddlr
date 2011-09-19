@@ -152,7 +152,6 @@ def contentrequest(environ, start_response, addr):
 
 	for i in rlist:
 		for j in i['photos']:
-			print j
 			month = time.gmtime(i['timestamp']).tm_mon
 			month = calendar.month_name[month] + ' ' + str(month)
 			post = dict([('id', i['id']),
@@ -160,26 +159,16 @@ def contentrequest(environ, start_response, addr):
 				('caption', j['caption']),
 				('numnotes', i['note_count']),
 				('date', month),
+				('hires', j['original_size'])
 				])
 
-			maxsize = 0
-			maxurl = ''
-
 			for k in j['alt_sizes']:
-
-				size = k['width'] * k['height']
-				if size > maxsize:
-					maxsize = size
-					maxurl = k['url']
-
 				if k['width'] == 400:
 					post['img'] = k['url']
-
+					break
+				
 			else:
-				post['img'] = maxurl;
-
-			post['hires'] = maxurl;
-
+				post['img'] = post['hires']
 			clist.append(post)
 	
 	content = [json.dumps(clist)]
