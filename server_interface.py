@@ -159,7 +159,7 @@ def contentrequest(environ, start_response, addr):
 				('caption', j['caption']),
 				('numnotes', i['note_count']),
 				('date', month),
-				('hires', j['original_size'])
+				('hires', j['original_size']['url'])
 				])
 
 			for k in j['alt_sizes']:
