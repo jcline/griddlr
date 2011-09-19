@@ -159,15 +159,26 @@ def contentrequest(environ, start_response, addr):
 				('caption', j['caption']),
 				('numnotes', i['note_count']),
 				('date', month),
-				('hires', j['alt_sizes'][0]['url'])
 				])
+
+			maxsize = 0
+			maxurl = ''
+
 			for k in j['alt_sizes']:
+
+				size = k['width'] * k['height']
+				if size > maxsize:
+					maxsize = size
+					maxurl = k['url']
+
 				if k['width'] == 400:
 					post['img'] = k['url']
-					#clist.append(k['url'])
-					break
+
 			else:
-				post['img'] = post['hires']
+				post['img'] = maxurl;
+
+			post['hires'] = maxurl;
+
 			clist.append(post)
 	
 	content = [json.dumps(clist)]
