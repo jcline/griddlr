@@ -1,6 +1,7 @@
 var current = 0;
 var ids = new Object();
 var stop = false;
+var loading = false;
 
 var statval = 0;
 var jqxhrval = 0;
@@ -50,8 +51,12 @@ jQuery(document).ready(function() {
 
 jQuery(window).scroll(function() {
 	if(jQuery(window).scrollTop() + jQuery(window).height() >=
-		jQuery(document).height() * .8) {
+		jQuery(document).height()) {
+		if(loading == false) {
+			loading = true;
 			getmore();
+			loading = false;
+		}
 	}
 });
 
